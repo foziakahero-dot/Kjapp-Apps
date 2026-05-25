@@ -1,0 +1,25 @@
+# Project TODO
+
+- [x] Update theme to dark premium + neon-blue glow design system
+- [x] Create KjappLogo SVG component (React Native)
+- [x] Create reusable glassmorphic card component
+- [x] Create neon glow button component
+- [x] Build Intro/Onboarding screen (3 slides with animations)
+- [x] Build Login screen (phone +47, SMS verification)
+- [x] Build Registration screen (customer-only, name input)
+- [x] Build Customer Dashboard with real map
+- [x] Integrate AI chat assistant (OpenAI GPT) for customer
+- [x] Build quick booking card with AI suggestions
+- [x] Build ride selection screen (KJAPP, XL, Premium)
+- [x] Build live tracking screen with real-time map
+- [x] Build Settings screen with payment methods (Stripe-ready)
+- [x] Build Profile/Account management
+- [x] Build Driver Dashboard with approval gate
+- [x] Build Driver AI assistant (route optimization, tips)
+- [x] Build Driver online/offline toggle
+- [x] Build ride request acceptance flow for driver
+- [x] Implement navigation structure (Intro → Login → Dashboard)
+- [x] Add bottom tab navigation for customer (Hjem, Turer, AI, Profil)
+- [x] Generate app logo with neon-blue KJAPP branding
+- [x] Configure app.config.ts with correct branding
+- [x] All UI text in Norwegian (Bokmål)
