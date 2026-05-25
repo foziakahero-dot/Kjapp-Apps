@@ -1,0 +1,37 @@
+name: KJAPP Mobile Builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "android, ios or all"
+        required: true
+        default: "android"
+      profile:
+        description: "preview or production"
+        required: true
+        default: "preview"
+  push:
+    branches: [ main ]
+
+jobs:
+  eas-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: npm ci
+      - run: npm run check
+      - name: Build Android APK/AAB
+        if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'all' || github.event_name == 'push' }}
+        run: eas build --platform android --profile ${{ github.event.inputs.profile || 'preview' }} --non-interactive
+      - name: Build iOS
+        if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'all' }}
+        run: eas build --platform ios --profile ${{ github.event.inputs.profile || 'preview' }} --non-interactive
