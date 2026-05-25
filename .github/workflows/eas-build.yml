@@ -11,6 +11,8 @@ on:
         description: "preview or production"
         required: true
         default: "preview"
+  pull_request:
+    branches: [ main ]
   push:
     branches: [ main ]
 
@@ -22,13 +24,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Type check
+        run: pnpm run check
       - uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-      - run: npm ci
-      - run: npm run check
       - name: Build Android APK/AAB
         if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'all' || github.event_name == 'push' }}
         run: eas build --platform android --profile ${{ github.event.inputs.profile || 'preview' }} --non-interactive
